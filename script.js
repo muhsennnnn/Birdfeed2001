@@ -1,53 +1,34 @@
+
 const cart = [];
 
-function addToCart(name, price) {
-  cart.push({ name, price });
-  updateCartDisplay();
-}
-
-function updateCartDisplay() {
-  const cartContainer = document.getElementById("cart-items");
-  cartContainer.innerHTML = "";
-
-  if (cart.length === 0) {
-    cartContainer.innerHTML = "<p>السلة فارغة.</p>";
-    return;
-  }
-
-  const ul = document.createElement("ul");
-  cart.forEach(item => {
-    const li = document.createElement("li");
-    li.textContent = `${item.name} - ${item.price}`;
-    ul.appendChild(li);
-  });
-
-  cartContainer.appendChild(ul);
+function addToCart(product, price) {
+  cart.push({ product, price });
+  alert(`${product} تمت إضافته إلى السلة.`);
 }
 
 document.getElementById("order-form").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const name = document.getElementById("customer-name").value.trim();
-const phone = document.getElementById("customer-phone").value.trim();
-const city = document.getElementById("customer-city").value.trim();
-const location = document.getElementById("customer-location").value.trim();
+  const phone = document.getElementById("customer-phone").value.trim();
+  const city = document.getElementById("customer-city").value.trim();
+  const location = document.getElementById("customer-location").value.trim();
 
-  if (cart.length === 0) {
-    alert("سلة الطلب فارغة!");
+  if (!name || !phone || !city || !location || cart.length === 0) {
+    alert("يرجى ملء جميع الحقول وإضافة منتجات إلى السلة.");
     return;
   }
 
   let message = `🛒 طلب جديد من أعلاف السالم\n`;
-message += `👤 الاسم: ${name}\n📞 الهاتف: ${phone}\n🏙️ المحافظة/المدينة: ${city}\n📍 أقرب نقطة دالة: ${location}\n\n`;
+  message += `👤 الاسم: ${name}\n📞 الهاتف: ${phone}\n🏙️ المحافظة/المدينة: ${city}\n📍 أقرب نقطة دالة: ${location}\n\n`;
   message += `📦 المنتجات المطلوبة:\n`;
-
-  cart.forEach(item => {
-    message += `- ${item.name} (${item.price})\n`;
+  cart.forEach((item, index) => {
+    message += `${index + 1}. ${item.product} - ${item.price}\n`;
   });
 
-  const encodedMessage = encodeURIComponent(message);
-  const whatsappNumber = "9647704159475"; // <-- استبدله لاحقًا برقمك الحقيقي
+  const encodedMsg = encodeURIComponent(message);
+  const phoneNumber = "964XXXXXXXXXX"; // ← ضع رقمك هنا
+  const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMsg}`;
 
-  const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
   window.open(whatsappURL, "_blank");
 });
