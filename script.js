@@ -28,7 +28,9 @@ document.getElementById("order-form").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const name = document.getElementById("customer-name").value.trim();
-  const phone = document.getElementById("customer-phone").value.trim();
+const phone = document.getElementById("customer-phone").value.trim();
+const city = document.getElementById("customer-city").value.trim();
+const location = document.getElementById("customer-location").value.trim();
 
   if (cart.length === 0) {
     alert("سلة الطلب فارغة!");
