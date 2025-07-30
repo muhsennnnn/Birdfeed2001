@@ -38,7 +38,7 @@ const location = document.getElementById("customer-location").value.trim();
   }
 
   let message = `🛒 طلب جديد من أعلاف السالم\n`;
-  message += `👤 الاسم: ${name}\n📞 الهاتف: ${phone}\n\n`;
+message += `👤 الاسم: ${name}\n📞 الهاتف: ${phone}\n🏙️ المحافظة/المدينة: ${city}\n📍 أقرب نقطة دالة: ${location}\n\n`;
   message += `📦 المنتجات المطلوبة:\n`;
 
   cart.forEach(item => {
